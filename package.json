@@ -1,0 +1,26 @@
+{
+  "name": "mamiko-todo",
+  "version": "1.0.0",
+  "description": "Desktop Todo Widget für macOS",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "keywords": ["todo", "widget", "desktop"],
+  "author": "MAMIKO by MUT-i-GEN",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^27.0.0",
+    "electron-builder": "^24.6.4"
+  },
+  "build": {
+    "appId": "com.mamiko.todowidget",
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": ["dmg"]
+    }
+  }
+}
+
+

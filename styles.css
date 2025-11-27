@@ -1,0 +1,495 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+  -webkit-app-region: no-drag;
+  overflow: hidden;
+}
+
+.widget-container {
+  width: 350px;
+  height: 500px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 
+              0 2px 8px rgba(0, 0, 0, 0.08),
+              inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Header */
+.header {
+  -webkit-app-region: drag;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.6) 0%, rgba(118, 75, 162, 0.6) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  cursor: move;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.window-controls {
+  -webkit-app-region: no-drag;
+  display: flex;
+  gap: 8px;
+}
+
+.control-btn {
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  line-height: 1;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.control-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: scale(1.1);
+}
+
+.control-btn.close:hover {
+  background: rgba(255, 95, 87, 0.8);
+  border-color: rgba(255, 95, 87, 1);
+}
+
+.control-btn.minimize:hover {
+  background: rgba(255, 189, 46, 0.8);
+  border-color: rgba(255, 189, 46, 1);
+}
+
+/* Task Counter */
+.task-counter {
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.7);
+  text-align: center;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#taskCount {
+  color: rgba(102, 126, 234, 1);
+  font-weight: 700;
+}
+
+/* Input Container */
+.input-container {
+  padding: 16px 20px;
+  display: flex;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#taskInput {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+#taskInput::placeholder {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+#taskInput:focus {
+  border-color: rgba(102, 126, 234, 0.6);
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.add-btn {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.add-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+.add-btn:active {
+  transform: scale(0.95);
+}
+
+.add-btn:disabled {
+  background: rgba(200, 200, 200, 0.5);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Task List */
+.task-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.task-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.task-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.task-list::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  backdrop-filter: blur(10px);
+}
+
+.task-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Task Item */
+.task-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  margin-bottom: 8px;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 12px;
+  transition: all 0.2s;
+  animation: slideIn 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.task-item:hover {
+  border-color: rgba(102, 126, 234, 0.5);
+  background: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+  transform: translateY(-1px);
+}
+
+.checkbox-circle {
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  border: 2px solid rgba(102, 126, 234, 0.5);
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+}
+
+.checkbox-circle:hover {
+  border-color: rgba(102, 126, 234, 0.8);
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(1.1);
+}
+
+.checkbox-circle.checked {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+  border-color: rgba(102, 126, 234, 0.8);
+}
+
+.checkbox-circle.checked::after {
+  content: "✓";
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.task-text {
+  flex: 1;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.85);
+  word-break: break-word;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.task-text:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.task-text.editing {
+  background: rgba(255, 255, 255, 0.6);
+  outline: 2px solid rgba(102, 126, 234, 0.5);
+  padding: 4px 8px;
+}
+
+.task-item.completing {
+  animation: fadeOut 0.3s ease;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+}
+
+/* Completed Section */
+.completed-section {
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.show-completed-btn {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  color: rgba(102, 126, 234, 1);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.show-completed-btn:hover {
+  background: rgba(255, 255, 255, 0.45);
+  border-color: rgba(102, 126, 234, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  animation: fadeIn 0.2s;
+}
+
+.modal.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  width: 320px;
+  max-height: 400px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.modal-header h3 {
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 600;
+}
+
+.modal-close {
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  color: rgba(0, 0, 0, 0.6);
+  line-height: 1;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.5);
+  transform: rotate(90deg);
+}
+
+.modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+}
+
+.modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  backdrop-filter: blur(10px);
+}
+
+.completed-task {
+  padding: 12px;
+  margin-bottom: 8px;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.completed-date {
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.5);
+  margin-top: 4px;
+}
+
+.modal-footer {
+  padding: 16px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.clear-btn {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgba(255, 95, 87, 0.3);
+  border-radius: 12px;
+  background: rgba(255, 95, 87, 0.7);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(255, 95, 87, 0.2);
+}
+
+.clear-btn:hover {
+  background: rgba(255, 95, 87, 0.85);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 95, 87, 0.3);
+}
+
+.clear-btn:active {
+  transform: translateY(0);
+}
+
+.empty-state {
+  text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+  padding: 40px 20px;
+  font-size: 14px;
+}

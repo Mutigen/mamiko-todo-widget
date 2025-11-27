@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo Widget</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="widget-container">
+    <!-- Header mit Drag-Area und Buttons -->
+    <div class="header" id="drag-area">
+      <h2>Meine Tasks</h2>
+      <div class="window-controls">
+        <button class="control-btn minimize" id="minimizeBtn" title="Minimieren">−</button>
+        <button class="control-btn close" id="closeBtn" title="Schließen">×</button>
+      </div>
+    </div>
+
+    <!-- Task Counter -->
+    <div class="task-counter">
+      <span id="taskCount">0/10</span> Tasks
+    </div>
+
+    <!-- Task Input -->
+    <div class="input-container">
+      <input 
+        type="text" 
+        id="taskInput" 
+        placeholder="Neue Aufgabe..." 
+        maxlength="100"
+      >
+      <button id="addBtn" class="add-btn">+</button>
+    </div>
+
+    <!-- Task List -->
+    <div class="task-list" id="taskList">
+      <!-- Tasks werden hier dynamisch eingefügt -->
+    </div>
+
+    <!-- Completed Tasks Button -->
+    <div class="completed-section">
+      <button id="showCompletedBtn" class="show-completed-btn">
+        Erledigte anzeigen (<span id="completedCount">0</span>)
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal für erledigte Tasks -->
+  <div id="completedModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Erledigte Aufgaben</h3>
+        <button class="modal-close" id="closeModal">×</button>
+      </div>
+      <div class="modal-body" id="completedList">
+        <!-- Completed tasks werden hier angezeigt -->
+      </div>
+      <div class="modal-footer">
+        <button id="clearCompletedBtn" class="clear-btn">Alle löschen</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
