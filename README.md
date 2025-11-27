@@ -2,6 +2,10 @@
 
 Ein modernes Desktop-Widget für macOS zum Verwalten von Aufgaben.
 
+<img width="352" height="503" alt="mamiko todo app2" src="https://github.com/user-attachments/assets/8f65659a-1707-459e-9a41-56e48dca2873" />
+<img width="352" height="503" alt="mamiko todo app1" src="https://github.com/user-attachments/assets/e1d37516-f23e-4574-83a9-a3e95f98c51b" />
+
+
 ## Features
 
 - ✅ Maximal 10 aktive Tasks gleichzeitig
